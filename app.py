@@ -17,9 +17,12 @@ bmi = st.number_input("BMI", 0.0)
 dpf = st.number_input("Diabetes Pedigree Function", 0.0)
 age = st.number_input("Age", 0)
 
+#New changes
+
 if st.button("Predict"):
     features = np.array([preg, glucose, bp, skin, insulin, bmi, dpf, age]).reshape(1, -1)
     scaled = scaler.transform(features)
     prediction = model.predict(scaled)[0]
     result = "Diabetic" if prediction == 1 else "Not Diabetic"
     st.success(f"Prediction: {result}")
+    
