@@ -19,11 +19,18 @@ dpf = st.number_input("Diabetes Pedigree Function", 0.0)
 age = st.number_input("Age", 0)
 
 #New changes
+#added a new line to test the commit and push functionality of git
 
 if st.button("Predict"):
     features = np.array([preg, glucose, bp, skin, insulin, bmi, dpf, age]).reshape(1, -1)
     scaled = scaler.transform(features)
+    
     prediction = model.predict(scaled)[0]
-    result = "Diabetic" if prediction == 1 else "Not Diabetic"
-    st.success(f"Prediction: {result}")
+    probability = model.predict_proba(scaled)[0][1] * 100
+    
+    if prediction ==1:
+        st.error(f"⚠️ Diabetic ({probability:.2f}% risk)")
+    else:
+        st.success(f"✅ Not Diabetic ({probability:.2f}%)")
+
     
